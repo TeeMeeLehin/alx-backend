@@ -28,12 +28,13 @@ class LFUCache(BaseCaching):
                 if len(min_keys) == 1:
                     key_to_remove = min_keys[0]
                 else:
-                    key_to_remove = min(min_keys, key=lambda k: list(self.cache_data.keys()).index(k))
+                    key_to_remove = min(min_keys,
+                                        key=lambda k: list(
+                                            self.cache_data.keys()).index(k))
 
                 del self.cache_data[key_to_remove]
                 del self.count[key_to_remove]
                 print(f"DISCARD: {key_to_remove}")
-
 
     def get(self, key):
         """ get func """
