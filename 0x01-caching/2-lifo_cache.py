@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ LIFO Cache """
+from collections import deque
 
 
 BaseCaching = __import__('base_caching').BaseCaching
@@ -11,16 +12,17 @@ class LIFOCache(BaseCaching):
     def __init__(self):
         """intialization func"""
         super().__init__()
+        self.queue = deque()
 
     def put(self, key, item):
         """ put func """
         if key is not None and item is not None:
+            if len(self.cache_data) == super().MAX_ITEMS:
+                l_key = self.queue.pop()
+                self.cache_data.pop(l_key)
+                print(f"DISCARD: {l_key}")
             self.cache_data[key] = item
-            max = super().MAX_ITEMS
-            if len(self.cache_data) > max:
-                key = list(self.cache_data.keys())[3]
-                self.cache_data.pop(key)
-                print(f"DISCARD: {key}")
+            self.queue.append(key)
 
     def get(self, key):
         """ get func """
