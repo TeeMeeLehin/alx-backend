@@ -14,6 +14,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """initialization function"""
         self.__dataset = None
         self.__indexed_dataset = None
 
@@ -40,6 +41,7 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """get hyper_index func"""
         assert 0 <= index < len(self.dataset())
         dataFile = self.dataset()[index: index + page_size]
         index = index
