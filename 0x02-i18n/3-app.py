@@ -2,6 +2,7 @@
 """basic flask app"""
 from flask import Flask, render_template, request
 from flask_babel import Babel
+from flask_babel import _
 
 
 class Config(object):
@@ -25,7 +26,7 @@ def get_locale():
 @app.route('/', strict_slashes=False)
 def index():
     """index function"""
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
