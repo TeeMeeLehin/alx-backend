@@ -2,6 +2,7 @@
 """basic flask app"""
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+from pytz import timezone, UnknownTimeZoneError
 
 
 users = {
@@ -52,10 +53,28 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+@babel.timezoneselector
+def get_timezone():
+    """func to get timezone"""
+    tz = request.args.get('timezone')
+    if tz:
+        try:
+            return timezone(tz)
+        except UnknownTimeZoneError:
+            pass
+    if g.user and g.user.get('timezone'):
+        utz = g.user.get('timezone')
+        try:
+            return timezone(utz)
+        except UnknownTimeZoneError:
+            pass
+    return timezone('UTC')
+
+
 @app.route('/', strict_slashes=False)
 def index():
     """index function"""
-    return render_template('6-index.html')
+    return render_template('7-index.html')
 
 
 if __name__ == '__main__':
